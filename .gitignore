@@ -1,0 +1,5 @@
+# Ignore all ./Pods/ files
+Pods/
+
+# Ignore all built-in videos
+BasicPlayer/DemoVideos/
