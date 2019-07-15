@@ -15,12 +15,12 @@ class VideosTableViewController: UITableViewController, AVPlayerViewControllerDe
     @IBOutlet weak var videoListTableView: UITableView!
     @IBAction func edit(_ sender: UIBarButtonItem) {
         videoListTableView.isEditing = !videoListTableView.isEditing
-
+        
         switch videoListTableView.isEditing {
-            case true:
-                sender.title = "Done"
-            case false:
-                sender.title = "Edit"
+        case true:
+            sender.title = "Done"
+        case false:
+            sender.title = "Edit"
         }
     }
     
@@ -34,6 +34,10 @@ class VideosTableViewController: UITableViewController, AVPlayerViewControllerDe
     //    let fileURL = dir.appendingPathComponent(file)
     
     //    MARK: - UITableViewDataSource
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videos.count
@@ -52,7 +56,11 @@ class VideosTableViewController: UITableViewController, AVPlayerViewControllerDe
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        playVideo(at: indexPath)
+        if PlaybackSettingsViewController.hwAccelerationIsOn {
+            playVideo(at: indexPath)
+        } else {
+            vlcPlayVideo(at: indexPath)
+        }
     }
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -73,9 +81,9 @@ class VideosTableViewController: UITableViewController, AVPlayerViewControllerDe
             self.videos.remove(at: indexPath.row)
             
             Video.videoList.remove(at: indexPath.row)
-            let selectedVideo = videos[indexPath.row]
-            let videoPath = Bundle.main.path(forResource: selectedVideo.videoFileName, ofType: "mp4")
-            removeFilePath(videoPath!)
+            //            let selectedVideo = videos[indexPath.row]
+            //            let videoPath = Bundle.main.path(forResource: selectedVideo.videoFileName, ofType: "mp4")
+            //            removeFilePath(videoPath!)
             
             tableView.reloadData()
         }
@@ -100,6 +108,23 @@ class VideosTableViewController: UITableViewController, AVPlayerViewControllerDe
         
     }
     
+    func vlcPlayVideo(at indexPath: IndexPath) {
+        let selectedVideo = videos[indexPath.row]
+        VLCPlayerViewController.globalVideoPathURL = selectedVideo.videoFileName
+    }
+    
+    
+    // MARK: Navigation Method
+    
+    //    private func navigateToPlayerInterface() {
+    //        let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+    //        guard let vlcPlayerViewController = mainStoryBoard.instantiateViewController(withIdentifier: "VLCPlayerViewController") as? VLCPlayerViewController else {
+    //            return
+    //        }
+    //        present(vlcPlayerViewController, animated: true, completion: nil)
+    //    }
+    
+    
     // MARK: AVPlayerDelegate Method
     
     func playerViewController(_ playerViewController: AVPlayerViewController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
@@ -122,3 +147,18 @@ class VideosTableViewController: UITableViewController, AVPlayerViewControllerDe
         }
     }
 }
+
+//extension UIView {
+//    func add(view: UIView, left: CGFloat, right: CGFloat, top: CGFloat, bottom: CGFloat) {
+//
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        self.addSubview(view)
+//
+//        view.leftAnchor.constraint(equalTo: self.leftAnchor, constant: left).isActive = true
+//        view.rightAnchor.constraint(equalTo: self.rightAnchor, constant: right).isActive = true
+//
+//        view.topAnchor.constraint(equalTo: self.topAnchor, constant: top).isActive = true
+//        view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: bottom).isActive = true
+//
+//    }
+//}

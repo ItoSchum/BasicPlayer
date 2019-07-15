@@ -10,11 +10,15 @@ import UIKit
 import AVKit
 import AVFoundation
 
-class NetworkSourceViewController: UIViewController, UITextFieldDelegate, AVPlayerViewControllerDelegate {
+class OnlineVideosViewController: UIViewController, UITextFieldDelegate, AVPlayerViewControllerDelegate {
     
     @IBOutlet weak var urlTextField: UITextField!
     @IBAction func urlLoad(_ sender: UIButton) {
-        playVideo()
+        if PlaybackSettingsViewController.hwAccelerationIsOn {
+            playVideo()
+        } else {
+            vlcPlayVideo()
+        }
     }
     @IBOutlet weak var onlineVideoListTableView: UITableView!
     
@@ -61,6 +65,18 @@ class NetworkSourceViewController: UIViewController, UITextFieldDelegate, AVPlay
         playerViewController.delegate = self
     }
     
+    static var globalVideoPathURL = ""
+    
+    func vlcPlayVideo(at indexPath: IndexPath) {
+        let selectedVideo = onlineVideos[indexPath.row]
+        VLCPlayerViewController.globalVideoPathURL = selectedVideo.videoFileName
+    }
+    
+    func vlcPlayVideo() {
+        VLCPlayerViewController.globalVideoPathURL = urlTextField.text!
+    }
+    
+    
     // MARK: AVPlayerDelegate Method
     
     func playerViewController(_ playerViewController: AVPlayerViewController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
@@ -71,10 +87,9 @@ class NetworkSourceViewController: UIViewController, UITextFieldDelegate, AVPlay
         }
     }
     
-    
 }
 
-extension NetworkSourceViewController: UITableViewDataSource {
+extension OnlineVideosViewController: UITableViewDataSource {
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,12 +105,16 @@ extension NetworkSourceViewController: UITableViewDataSource {
     }
 }
 
-extension NetworkSourceViewController: UITableViewDelegate {
+extension OnlineVideosViewController: UITableViewDelegate {
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        playVideo(at: indexPath)
+        if PlaybackSettingsViewController.hwAccelerationIsOn {
+            playVideo(at: indexPath)
+        } else {
+            vlcPlayVideo(at: indexPath)
+        }
     }
     
     

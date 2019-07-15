@@ -60,6 +60,10 @@
                                 <connections>
                                     <outlet property="nameLabel" destination="27v-Xl-Fgz" id="eRu-W3-WXm"/>
                                     <outlet property="thumbnailImageView" destination="Wyl-RB-FzI" id="Co7-Jw-IL8"/>
+                                    <segue destination="aBQ-WD-85R" kind="custom" customClass="PlayerViewSegue" customModule="BasicPlayer" customModuleProvider="target" id="aAw-BH-3Zt">
+                                        <segue key="commit" inheritsFrom="parent" id="yzz-Rj-FEE"/>
+                                        <segue key="preview" inheritsFrom="commit" id="ZRi-tL-CNV"/>
+                                    </segue>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -81,7 +85,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="obg-wr-XDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1785" y="-338"/>
+            <point key="canvasLocation" x="1886" y="40"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sKQ-TY-UfC">
@@ -97,7 +101,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ntY-Rh-C2K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20" y="18"/>
+            <point key="canvasLocation" x="-68" y="18"/>
         </scene>
         <!--Main Menu-->
         <scene sceneID="ljI-ge-mNg">
@@ -235,7 +239,7 @@
         <!--Network Source-->
         <scene sceneID="zsm-YY-y14">
             <objects>
-                <viewController id="d3e-6Y-5by" customClass="NetworkSourceViewController" customModule="BasicPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="d3e-6Y-5by" customClass="OnlineVideosViewController" customModule="BasicPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BCk-d8-sjC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -261,6 +265,7 @@
                                 <state key="normal" title="Load"/>
                                 <connections>
                                     <action selector="urlLoad:" destination="d3e-6Y-5by" eventType="touchUpInside" id="Zrx-Qg-uwl"/>
+                                    <segue destination="aBQ-WD-85R" kind="custom" customClass="PlayerViewSegue" customModule="BasicPlayer" customModuleProvider="target" id="T8U-sR-OZx"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="250" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z0I-SD-w98" userLabel="OnlineVideoListTableView">
@@ -308,6 +313,7 @@
                                         <connections>
                                             <outlet property="nameLabel" destination="pQC-fy-YNg" id="sAN-8e-olt"/>
                                             <outlet property="thumbnailImageView" destination="sQi-lp-ZN6" id="KUe-ud-xon"/>
+                                            <segue destination="aBQ-WD-85R" kind="custom" customClass="PlayerViewSegue" customModule="BasicPlayer" customModuleProvider="target" id="68C-mi-Id6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -347,7 +353,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pLS-Bb-0uY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="mcU-hQ-Bie" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1784.8" y="418.74062968515744"/>
+            <point key="canvasLocation" x="1886" y="789"/>
         </scene>
         <!--About-->
         <scene sceneID="fJ1-IM-mk2">
@@ -377,12 +383,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9tl-Gq-QNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="744.79999999999995" y="774.06296851574223"/>
+            <point key="canvasLocation" x="745" y="788"/>
         </scene>
         <!--Playback Settings-->
         <scene sceneID="7b2-70-mBF">
             <objects>
-                <tableViewController id="bmj-gy-BPG" sceneMemberID="viewController">
+                <tableViewController id="bmj-gy-BPG" customClass="PlaybackSettingsViewController" customModule="BasicPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hzv-Yr-R9c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -390,7 +396,7 @@
                         <sections>
                             <tableViewSection id="kEL-cS-YYU">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="foe-D1-qqf">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaybackSettingCell" id="foe-D1-qqf">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="foe-D1-qqf" id="Cub-2o-Cnm">
@@ -399,6 +405,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="da0-qu-1hc">
                                                     <rect key="frame" x="311" y="12" width="51" height="23.5"/>
+                                                    <connections>
+                                                        <action selector="hwAcceleration:" destination="bmj-gy-BPG" eventType="valueChanged" id="mSF-2F-cnf"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hardware Acceleration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjn-vB-LuH">
                                                     <rect key="frame" x="15" y="12.5" width="174" height="21"/>
@@ -423,20 +432,67 @@
                                 </cells>
                             </tableViewSection>
                         </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="bmj-gy-BPG" id="cMo-jx-RGj"/>
-                            <outlet property="delegate" destination="bmj-gy-BPG" id="AsF-hK-WOL"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Playback Settings" id="B9Q-rv-gNe"/>
+                    <connections>
+                        <outlet property="hwAccelerationSwitch" destination="da0-qu-1hc" id="bPB-QM-j15"/>
+                        <outlet property="switchName" destination="fjn-vB-LuH" id="fxa-9x-bvY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eOP-n5-BtY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2500" y="18"/>
+            <point key="canvasLocation" x="1534" y="-653"/>
+        </scene>
+        <!--Player View-->
+        <scene sceneID="V2M-lR-jCa">
+            <objects>
+                <viewController id="aBQ-WD-85R" userLabel="Player View" customClass="VLCPlayerViewController" customModule="BasicPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="llv-oe-jma">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BKS-Qc-gJN" userLabel="Player View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMk-3m-ZrN">
+                                        <rect key="frame" x="315" y="15" width="40" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Back"/>
+                                        <connections>
+                                            <segue destination="9Dr-Bn-HiT" kind="unwind" unwindAction="prepareForUnwindWithSegue:" id="cWG-tK-plx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="nMk-3m-ZrN" secondAttribute="trailing" constant="20" id="5ET-JV-pgr"/>
+                                    <constraint firstItem="nMk-3m-ZrN" firstAttribute="top" secondItem="BKS-Qc-gJN" secondAttribute="top" constant="15" id="CPO-tZ-0zw"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="BKS-Qc-gJN" firstAttribute="top" secondItem="llv-oe-jma" secondAttribute="top" id="5Z1-QM-XVs"/>
+                            <constraint firstItem="BKS-Qc-gJN" firstAttribute="trailing" secondItem="O9A-Y4-HFp" secondAttribute="trailing" id="I1s-aO-5s7"/>
+                            <constraint firstItem="BKS-Qc-gJN" firstAttribute="leading" secondItem="O9A-Y4-HFp" secondAttribute="leading" id="pFF-aq-B8S"/>
+                            <constraint firstItem="BKS-Qc-gJN" firstAttribute="bottom" secondItem="O9A-Y4-HFp" secondAttribute="bottom" id="uGd-QU-Obc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="O9A-Y4-HFp"/>
+                    </view>
+                    <connections>
+                        <outlet property="playerView" destination="BKS-Qc-gJN" id="o5h-98-Q34"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tb3-vN-A9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="9Dr-Bn-HiT" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3122" y="393"/>
         </scene>
     </scenes>
     <resources>
         <image name="btn-play" width="373" height="373"/>
         <image name="videoSample_1" width="1920" height="1080"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ZRi-tL-CNV"/>
+    </inferredMetricsTieBreakers>
 </document>
