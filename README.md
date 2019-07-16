@@ -1,7 +1,7 @@
 # Basic Player
 
 ## Feature
-1. Play **Local** media files
+- Play **Local** media files
 - Play **Online** media streaming (e.g. HLS)
 - **Switching** playing mehods (via AVKit or VLCKit*)
 - Browse media via customized **UITableView**
